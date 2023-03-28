@@ -76,4 +76,13 @@ app.route("/articles/:articleTitle")
                 res.send(foundArticle);
             }
         });
+    })
+    .patch((req, res) => {
+        Article.updateOne({ title: req.params.articleTitle }, { title: req.body.title, content: req.body.content }).then((foundArticle) => {
+            if (foundArticle === null) {
+                res.send("Article not found");
+            } else {
+                res.send(foundArticle);
+            }
+        });
     });
