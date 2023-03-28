@@ -26,3 +26,12 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {
     res.send("Hello World");
 });
+
+app.get("/articles", (req, res) => {
+    Article.find({}).then((foundArticles) => {
+        res.send(foundArticles);
+    }).catch((error) => {
+        console.log(error);
+        res.send(error);
+    });
+});
