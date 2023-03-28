@@ -57,3 +57,14 @@ app.route("/articles")
             res.send(result);
         })
     });
+
+app.route("/articles/:articleTitle")
+    .get((req, res) => {
+        Article.findOne({ title: req.params.articleTitle }).then((foundArticle) => {
+            if (foundArticle === null) {
+                res.send("Article not found");
+            } else {
+                res.send(foundArticle);
+            }
+        })
+    });
