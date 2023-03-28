@@ -67,4 +67,13 @@ app.route("/articles/:articleTitle")
                 res.send(foundArticle);
             }
         })
+    })
+    .put((req, res) => {
+        Article.replaceOne({ title: req.params.articleTitle }, { title: req.body.title, content: req.body.content }).then((foundArticle) => {
+            if (foundArticle === null) {
+                res.send("Article not found");
+            } else {
+                res.send(foundArticle);
+            }
+        });
     });
