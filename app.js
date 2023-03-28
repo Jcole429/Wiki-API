@@ -69,20 +69,20 @@ app.route("/articles/:articleTitle")
         })
     })
     .put((req, res) => {
-        Article.replaceOne({ title: req.params.articleTitle }, { title: req.body.title, content: req.body.content }).then((foundArticle) => {
+        Article.replaceOne({ title: req.params.articleTitle }, { title: req.body.title, content: req.body.content }).then((results) => {
             if (foundArticle === null) {
                 res.send("Article not found");
             } else {
-                res.send(foundArticle);
+                res.send(results);
             }
         });
     })
     .patch((req, res) => {
-        Article.updateOne({ title: req.params.articleTitle }, { title: req.body.title, content: req.body.content }).then((foundArticle) => {
+        Article.updateOne({ title: req.params.articleTitle }, { title: req.body.title, content: req.body.content }).then((results) => {
             if (foundArticle === null) {
                 res.send("Article not found");
             } else {
-                res.send(foundArticle);
+                res.send(results);
             }
         });
     });
