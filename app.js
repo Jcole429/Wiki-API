@@ -27,11 +27,33 @@ app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
-app.get("/articles", (req, res) => {
-    Article.find({}).then((foundArticles) => {
-        res.send(foundArticles);
-    }).catch((error) => {
-        console.log(error);
-        res.send(error);
+app.route("/articles")
+    .get((req, res) => {
+        Article.find({}).then((foundArticles) => {
+            res.send(foundArticles);
+        }).catch((error) => {
+            console.log(error);
+            res.send(error);
+        });
+    })
+    .post((req, res) => {
+        const newArticle = new Article({
+            title: req.body.title,
+            content: req.body.content
+        });
+        newArticle.save().then((createdArticle) => {
+            if (createdArticle === null) {
+                res.send("POST not successful");
+            } else {
+                res.send("Successfully created new Wiki entry.")
+            }
+        }).catch((error) => {
+            console.log(error);
+            res.send(error);
+        });
+    })
+    .delete((req, res) => {
+        Article.deleteMany().then((result) => {
+            res.send(result);
+        })
     });
-});
