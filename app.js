@@ -85,4 +85,9 @@ app.route("/articles/:articleTitle")
                 res.send(results);
             }
         });
+    })
+    .delete((req, res) => {
+        Article.deleteOne({ title: req.params.articleTitle }).then((results) => {
+            res.send(results);
+        });
     });
